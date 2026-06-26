@@ -84,25 +84,13 @@ jobs:
           keep_files: false
           publish_branch: gh-pages
 
-      - name: Notify consuming projects
+      - name: Sync to Lovable project (BYmAIcar Portal)
         if: success()
         env:
-          WEBHOOK_URLS: ${{ secrets.CONSUMER_WEBHOOKS }}
-        run: |
-          if [ -n "$WEBHOOK_URLS" ]; then
-            echo "=== Notification des projets consommateurs ==="
-            for url in $(echo "$WEBHOOK_URLS" | tr ',' ' '); do
-              echo "→ Notification : $url"
-              curl -s -X POST "$url" \
-                -H "Content-Type: application/json" \
-                -d '{"event":"tools-updated","source":"bymycar-tools-catalogue","timestamp":"'$(date -u +"%Y-%m-%dT%H:%M:%SZ")'"}'
-              echo ""
-            done
-          else
-            echo "ℹ️  Aucun webhook configuré (CONSUMER_WEBHOOKS)."
-            echo "   Les projets consommateurs peuvent fetch le JSON depuis :"
-            echo "   https://raw.githubusercontent.com/${{ github.repository }}/main/dist/tools-catalogue.json"
-          fi
+          LOVABLE_CLIENT_ID: ${{ secrets.LOVABLE_CLIENT_ID }}
+          LOVABLE_REFRESH_TOKEN: ${{ secrets.LOVABLE_REFRESH_TOKEN }}
+          GITHUB_SHA: ${{ github.sha }}
+        run: node scripts/sync-to-lovable.js ${{ secrets.LOVABLE_PROJECT_ID }}
 
       - name: Summary
         if: always()
