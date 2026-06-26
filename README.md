@@ -1,43 +1,75 @@
-# 🧰 BYmyCAR Tools Catalogue
+# BYmyCAR Tools Catalogue
 
 Catalogue centralisé de tous les outils du groupe BYmyCAR / Cosmobilis.
 
-## 🎯 Objectif
+## Objectif
 
 **Single Source of Truth** pour l'ensemble des outils du groupe :
-- Chaque équipe maintient **son propre fichier YAML** dans `/tools/`
-- Les données sont **automatiquement synchronisées** vers Supabase
-- Tous les projets (chatbot Boîte à Idées, dashboards, etc.) **consomment les mêmes données à jour**
+- Chaque **équipe** maintient **son propre fichier YAML** dans `/tools/`
+- Un **JSON statique** est généré automatiquement (`dist/tools-catalogue.json`)
+- Le projet **BYmAIcar Portal** (Boîte à Idées) embarque les données en TypeScript
+- **Zéro base de données** nécessaire : les données voyagent du YAML au code
 
-## 📂 Structure
+## Architecture
 
 ```
-bymycar-tools-catalogue/
-├── tools/                          # Fiches outils (un fichier par outil)
-│   ├── hub-autometrics.yaml        # Hub Autometrics
-│   ├── myanapro.yaml               # MyANAPro (ANA)
-│   └── openflex-marketing.yaml     # OpenFlex & OpenFlex Marketing
-├── schema/
-│   └── tool-schema.yaml            # Schéma de validation YAML
-├── scripts/
-│   └── validate-and-sync.js        # Script de validation + sync Supabase
-├── .github/workflows/
-│   └── sync-to-supabase.yml        # GitHub Action : sync automatique
-└── README.md
+                        GitHub Repo
+                    bymycar-tools-catalogue
+                    │
+        ┌───────────┼──────────────┐
+        ▼           ▼              ▼
+   tools/        scripts/       .github/
+   *.yaml       generate-       workflows/
+   (SSOT)       json.js         build-and-deploy.yml
+        │           │              │
+        │           ▼              ▼
+        │      dist/             GitHub Actions
+        │      tools-catalogue    (validation +
+        │      .json              génération JSON)
+        │           │
+        └───────────┘
+                    │
+                    ▼
+           BYmAIcar Portal
+           (Lovable project)
+           src/lib/tools-catalogue-data.ts
+           (données embarquées en TypeScript)
+                    │
+                    ▼
+           Boîte à Idées Chatbot
+           (recherche d'outils locale,
+            zéro appel réseau)
 ```
 
-## 🚀 Comment ça marche
+## Comment ça marche
 
 ### Pour les équipes
 
 1. **Modifiez** le fichier YAML de votre outil dans `/tools/`
 2. **Créez une Pull Request** sur GitHub
-3. La GitHub Action **valide** automatiquement le format
+3. La GitHub Action **valide** automatiquement le format YAML
 4. Un review est fait → **Merge** sur `main`
-5. La GitHub Action **synchronise** les données vers Supabase
-6. **Tous les projets** utilisant ces données sont **mis à jour automatiquement**
+5. La GitHub Action **génère** `dist/tools-catalogue.json`
+6. Un développeur **importe le JSON** dans le projet BYmAIcar Portal
+   (script `node scripts/generate-json.js` → copier dans le projet Lovable)
 
-### Format d'une fiche outil
+### Pour les développeurs Lovable
+
+Quand les YAML sont mis à jour :
+
+```bash
+git pull
+node scripts/generate-json.js
+# Copier dist/tools-catalogue.json dans le projet Lovable
+# Et mettre à jour src/lib/tools-catalogue-data.ts
+```
+
+Ou bien le projet Lovable peut fetch le JSON depuis :
+```
+https://raw.githubusercontent.com/johnmelek-bmc/bymycar-tools-catalogue/main/dist/tools-catalogue.json
+```
+
+## Format d'une fiche outil
 
 ```yaml
 tool:
@@ -71,40 +103,26 @@ tool:
       description: "..."
 ```
 
-## 🔄 Propagation automatique
+## Fichiers importants
 
-```
-Équipe modifie son YAML
-        │
-        ▼
-  Pull Request → Validation automatique
-        │
-        ▼
-  Merge sur main
-        │
-        ▼
-  GitHub Action : sync-to-supabase
-        │
-        ├──► Supabase table : tools_catalogue
-        │
-        ├──► Invalidations cache CDN
-        │
-        └──► Webhooks → projets consommateurs
-                  │
-                  ├──► Boîte à Idées Chatbot
-                  ├──► BYmyCAR Satisfaction Platform
-                  └──► (futurs projets)
-```
+| Fichier | Rôle |
+|---|---|
+| `tools/*.yaml` | Source de vérité : fiches outils (une par fichier) |
+| `scripts/generate-json.js` | Génère `dist/tools-catalogue.json` depuis les YAML |
+| `dist/tools-catalogue.json` | JSON consolidé, consommable par tous les projets |
+| `.github/workflows/sync-to-supabase.yml` | GitHub Action : validation + build + déploiement |
+| (projet Lovable) `src/lib/tools-catalogue-data.ts` | Données embarquées en TypeScript dans le Portal |
+| (projet Lovable) `src/lib/ideas.functions.ts` | Fonction de recherche d'outils (searchToolsLocal) |
 
-## 📋 Outils actuellement référencés
+## Outils actuellement référencés
 
-| Outil | Équipe | Statut |
+| Outil | Équipe | Catégories |
 |---|---|---|
-| [Hub Autometrics](tools/hub-autometrics.yaml) | Data & Performance | ✅ |
-| [MyANAPro (ANA)](tools/myanapro.yaml) | Process & Administration | ✅ |
-| [OpenFlex & OFM](tools/openflex-marketing.yaml) | CRM & Marketing Digital | ✅ |
+| [Hub Autometrics](tools/hub-autometrics.yaml) | Data & Performance | Pilotage, Stock & Ventes, Performance |
+| [MyANAPro (ANA)](tools/myanapro.yaml) | Process & Administration | Administratif, Processus, Documents |
+| [OpenFlex & OFM](tools/openflex-marketing.yaml) | CRM & Marketing Digital | CRM, Marketing, Ventes, Data |
 
-## 🔐 Accès
+## Accès
 
 Chaque outil a ses propres règles d'accès. Consultez la fiche YAML de l'outil
 pour savoir comment demander l'accès.
