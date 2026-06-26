@@ -1,0 +1,68 @@
+# =============================================================================
+# BYmyCAR Tools Catalogue — Schema de validation (v1)
+# =============================================================================
+# Chaque fichier YAML dans /tools/ doit respecter cette structure.
+# Utilisé par la GitHub Action pour valider avant merge.
+
+tool:
+  # --- Identifiants ---
+  id: string                           # slug unique (ex: "hub-autometrics")
+  name: string                         # nom court (ex: "Hub Autometrics")
+  display_name: string                 # nom d'affichage (ex: "Hub Autometrics")
+  version: string                      # version semver (ex: "2.3.1")
+
+  # --- Équipe responsable ---
+  team:
+    name: string                       # nom de l'équipe
+    owners:                            # liste des responsables
+      - email: string                  # email du responsable
+        name: string                   # nom du responsable
+        role: string                   # rôle dans l'équipe
+
+  # --- Description ---
+  description_short: string            # une phrase max 200 chars
+  description_fr: string               # description complète en français
+  description_en: string               # description complète en anglais (optionnel)
+
+  # --- Accès ---
+  access_url: string                   # URL de l'outil
+  documentation_url: string            # URL de la documentation / wiki
+  support_contact: string              # email ou channel slack pour le support
+
+  # --- Catégorisation ---
+  categories:                          # catégories pour le filtrage
+    - string
+
+  # --- Tags ---
+  tags:                                # mots-clés pour la recherche sémantique
+    - string
+
+  # --- Cas d'usage (pour le chatbot) ---
+  use_cases:                           # chaque "problem" doit pouvoir être matché par le bot
+    - problem: string                  # description du problème utilisateur
+      solution: string                 # solution apportée par l'outil
+      link: string                     # lien direct vers la fonctionnalité (optionnel)
+
+  # --- Fonctionnalités détaillées ---
+  features:
+    - name: string                     # nom de la fonctionnalité
+      description: string              # description
+      category: string                 # catégorie (optionnel)
+      screenshot_url: string           # URL capture d'écran (optionnel)
+
+  # --- Intégrations ---
+  integrations:                        # systèmes avec lesquels l'outil s'intègre
+    - name: string
+      type: string                     # DMS, CRM, API, etc.
+      description: string
+
+  # --- Prérequis accès ---
+  access_required:
+    needs_manager_approval: boolean    # faut-il l'approbation du manager ?
+    how_to_request: string             # instructions pour demander l'accès
+    available_to: string               # "tous", "manager", "direction", "équipe spécifique"
+
+  # --- Métadonnées ---
+  last_updated: date                   # date de dernière mise à jour (YYYY-MM-DD)
+  updated_by: string                   # email de la personne qui a mis à jour
+  schema_version: string               # version du schéma utilisé

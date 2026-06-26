@@ -1,0 +1,193 @@
+# =============================================================================
+# Hub Autometrics — Fiche outil
+# =============================================================================
+# Dernière mise à jour : 2026-06-25
+# Source : C:\...\Data catalogue\TOOLS\hub auto metrics.docx
+
+tool:
+  id: hub-autometrics
+  name: "Hub Autometrics"
+  display_name: "Hub Autometrics"
+  version: "2.3.0"
+
+  team:
+    name: "Data & Performance"
+    owners:
+      - email: "a-definir@bymycar.fr"
+        name: "À définir"
+        role: "Product Owner"
+
+  description_short: >
+    Plateforme centralisée d'analyse et de pilotage multi-marque / 
+    multi-groupe pour le suivi du stock, des ventes et du portage.
+
+  description_fr: >
+    Hub Autometrics consolide des données issues de plus de 18 systèmes
+    (DMS, outils d'analyse, organismes de portage, outils marché, etc.)
+    pour offrir une vision 360° du stock, des ventes et du portage.
+    Il permet un pilotage fin de la performance à travers des indicateurs
+    couvrant le stock global, l'âge et l'ancienneté, la marge, les
+    réservations, le positionnement prix marché, les ordres de facturation (OF),
+    la qualité des annonces, et bien plus encore.
+
+  description_en: >
+    Hub Autometrics is a centralized multi-brand / multi-group analytics
+    and management platform for tracking inventory, sales, and vehicle
+    portfolio. It consolidates data from over 18 systems (DMS, analytics
+    tools, portfolio organizations, market tools, etc.) to provide a 360°
+    view of stock, sales, and portfolio performance.
+
+  access_url: "https://hub-autometrics.bymycar.fr"
+  documentation_url: "https://wiki.bymycar.fr/hub-autometrics"
+  support_contact: "#support-hub-autometrics"
+
+  categories:
+    - "Pilotage"
+    - "Stock & Ventes"
+    - "Performance"
+    - "Portage"
+
+  tags:
+    - "stock"
+    - "ventes"
+    - "portage"
+    - "KPI"
+    - "âge stock"
+    - "marge"
+    - "réservations"
+    - "prix marché"
+    - "OF"
+    - "qualité annonce"
+    - "tableau de bord"
+    - "pilotage"
+    - "multi-marque"
+    - "multi-groupe"
+    - "indicateurs"
+
+  use_cases:
+    - problem: "Je veux voir l'âge et l'ancienneté de mon stock"
+      solution: >
+        Accédez aux indicateurs Âge & Ancienneté : âge moyen global,
+        âge moyen en vente, jours CA en stock, suivi des stocks
+        +90j / +120j / +180j.
+      link: "https://hub-autometrics.bymycar.fr/age"
+
+    - problem: "Je veux analyser ma marge et ma performance économique"
+      solution: >
+        Consultez les indicateurs de marge : marge unitaire HT, marge
+        totale HT, marges négatives (montant + nb véhicules), frais
+        financiers +120j.
+      link: "https://hub-autometrics.bymycar.fr/marge"
+
+    - problem: "Je veux vérifier la qualité de mes annonces web"
+      solution: >
+        Tableau de bord Qualité Annonce : véhicules sans photo Carviz,
+        sans commentaire, prix non actualisé +45j, doublons potentiels,
+        dépôts vente.
+      link: "https://hub-autometrics.bymycar.fr/qualite-annonce"
+
+    - problem: "Je veux suivre mes réservations et cessions en cours"
+      solution: >
+        Visualisez les réservés 48h, réservés illimités, les cessions
+        en cours et les véhicules en portage.
+      link: "https://hub-autometrics.bymycar.fr/reservations"
+
+    - problem: "Je veux connaître le positionnement prix de mes véhicules par rapport au marché"
+      solution: >
+        Indicateurs d'écart moyen prix/marché (%), détection des
+        surcotés (>+5%) et sous-cotés (<-10%).
+      link: "https://hub-autometrics.bymycar.fr/positionnement-prix"
+
+    - problem: "Je veux piloter mes ordres de facturation (OF)"
+      solution: >
+        Suivi des OF : sortie/pas créé OF, pré-rentrée OF, non publié OF,
+        délai de mise en ligne, anomalies OF livraison.
+      link: "https://hub-autometrics.bymycar.fr/pilotage-of"
+
+    - problem: "Je veux une vision globale de mon stock (VN, VO, VD)"
+      solution: >
+        Dashboard Stock Global : volume par type (VN/VO/VD), véhicules
+        en portage, multifinancement, rafraîchissement stock, stock
+        comptable VO, disponible à la vente, en préparation OF.
+
+    - problem: "Je veux voir l'exposition financière de mon stock (CTM)"
+      solution: >
+        Indicateurs CTM & Stock : valeur de stock liée au portage
+        financier par organisme (Alcopa), par client, par groupe,
+        pour mesurer l'exposition et optimiser les arbitrages.
+
+  features:
+    - name: "Stock Global"
+      description: >
+        Volume et structure du stock (VN, VO, VD), présence dans les
+        dispositifs de portage/financement, rafraîchissement, comptabilité.
+      category: "Stock"
+
+    - name: "CTM & Stock"
+      description: >
+        Valeur de stock liée au portage financier (CTM) par organisme,
+        client ou groupe.
+      category: "Finance"
+
+    - name: "Âge & Ancienneté"
+      description: >
+        Âge moyen stock (global et en vente), jours CA en stock, suivi
+        des seuils +90j, +120j, +180j.
+      category: "Stock"
+
+    - name: "Marge"
+      description: >
+        Marge unitaire HT, marge totale HT, marges négatives, frais
+        financiers +120j.
+      category: "Performance"
+
+    - name: "Réservations & Blocages"
+      description: >
+        Cessions en cours, réservés 48h, réservés illimités.
+      category: "Ventes"
+
+    - name: "Positionnement Prix Marché"
+      description: >
+        Écart moyen prix/marché (%), surcotés >+5%, sous-cotés <-10%.
+      category: "Prix"
+
+    - name: "Pilotage OF"
+      description: >
+        Sortie/pas créé OF, pré-rentrée OF, non publié, délai mise en ligne.
+      category: "Process"
+
+    - name: "Anomalies OF"
+      description: >
+        En livraison OF, livraison non CTM, CTM DMS en vente OF.
+      category: "Process"
+
+    - name: "Qualité Annonce & Comptabilité"
+      description: >
+        Sans photo Carviz, sans commentaire, prix non actualisé +45j,
+        OF sans compta, doublons, dépôts vente.
+      category: "Qualité"
+
+  integrations:
+    - name: "DMS (multiples)"
+      type: "DMS"
+      description: "Récupération des données de stock et ventes"
+    - name: "Organismes de portage"
+      type: "Finance"
+      description: "Données CTM Alcopa et autres organismes"
+    - name: "Outils marché"
+      type: "Market Data"
+      description: "Positionnement prix et données marché"
+    - name: "Carviz"
+      type: "Photo"
+      description: "Photos et commentaires des véhicules"
+
+  access_required:
+    needs_manager_approval: true
+    how_to_request: >
+      Faites une demande à votre manager qui validera votre accès.
+      L'équipe Data & Performance créera ensuite votre compte.
+    available_to: "Tous les managers et directions"
+
+  last_updated: "2026-06-25"
+  updated_by: "john.melek@bymycar.fr"
+  schema_version: "1.0"

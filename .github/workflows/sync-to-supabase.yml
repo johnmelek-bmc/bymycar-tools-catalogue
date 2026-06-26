@@ -1,0 +1,180 @@
+# =============================================================================
+# BYmyCAR Tools Catalogue — Sync vers Supabase
+# =============================================================================
+# Cette GitHub Action se déclenche à chaque push sur main (merge de PR).
+# Elle :
+#   1. Valide la structure YAML de tous les fichiers dans /tools/
+#   2. Synchronise les données dans la table Supabase tools_catalogue
+#   3. Déclenche un webhook vers les projets consommateurs (optionnel)
+# =============================================================================
+
+name: sync-tools-to-supabase
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "tools/**/*.yaml"
+      - "tools/**/*.yml"
+  workflow_dispatch: # permet un déclenchement manuel
+
+jobs:
+  validate-and-sync:
+    name: Validate & Sync to Supabase
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: |
+          npm install yaml @supabase/supabase-js ajv
+
+      - name: Validate YAML files
+        run: |
+          echo "=== Validation des fichiers YAML ==="
+          for file in tools/*.yaml tools/*.yml; do
+            if [ -f "$file" ]; then
+              echo "→ Validation de $file..."
+              node -e "
+                const fs = require('fs');
+                const YAML = require('yaml');
+                try {
+                  const doc = YAML.parse(fs.readFileSync('$file', 'utf8'));
+                  // Vérifications basiques
+                  if (!doc.tool) throw new Error('Structure tool manquante');
+                  if (!doc.tool.id) throw new Error('id manquant');
+                  if (!doc.tool.name) throw new Error('name manquant');
+                  if (!doc.tool.display_name) throw new Error('display_name manquant');
+                  if (!doc.tool.team || !doc.tool.team.name) throw new Error('team.name manquant');
+                  if (!doc.tool.description_fr) throw new Error('description_fr manquante');
+                  if (!doc.tool.access_url) throw new Error('access_url manquante');
+                  if (!doc.tool.use_cases || doc.tool.use_cases.length === 0) throw new Error('use_cases manquants');
+                  if (!doc.tool.features || doc.tool.features.length === 0) throw new Error('features manquantes');
+                  console.log('  ✅ OK');
+                } catch (e) {
+                  console.error('  ❌ Erreur:', e.message);
+                  process.exit(1);
+                }
+              "
+            fi
+          done
+
+      - name: Sync to Supabase
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: |
+          echo "=== Synchronisation vers Supabase ==="
+          node -e "
+            const fs = require('fs');
+            const path = require('path');
+            const YAML = require('yaml');
+            const { createClient } = require('@supabase/supabase-js');
+
+            const supabaseUrl = process.env.SUPABASE_URL;
+            const supabaseKey = process.env.SUPABASE_SERVICE_KEY;
+
+            if (!supabaseUrl || !supabaseKey) {
+              console.log('⚠️  SUPABASE_URL ou SUPABASE_SERVICE_KEY non définis.');
+              console.log('   Les fichiers YAML sont validés mais pas synchronisés.');
+              console.log('   Ajoutez ces secrets dans les settings GitHub.');
+              process.exit(0);
+            }
+
+            const supabase = createClient(supabaseUrl, supabaseKey);
+            const toolsDir = 'tools';
+
+            async function sync() {
+              const files = fs.readdirSync(toolsDir)
+                .filter(f => f.endsWith('.yaml') || f.endsWith('.yml'));
+
+              let successCount = 0;
+              let errorCount = 0;
+
+              for (const file of files) {
+                try {
+                  const content = fs.readFileSync(path.join(toolsDir, file), 'utf8');
+                  const doc = YAML.parse(content);
+                  const tool = doc.tool;
+
+                  // Upsert dans Supabase (met à jour si l'id existe déjà)
+                  const { data, error } = await supabase
+                    .from('tools_catalogue')
+                    .upsert({
+                      id: tool.id,
+                      name: tool.name,
+                      display_name: tool.display_name,
+                      version: tool.version,
+                      team_name: tool.team.name,
+                      team_owners: tool.team.owners,
+                      description_short: tool.description_short || '',
+                      description_fr: tool.description_fr,
+                      description_en: tool.description_en || '',
+                      access_url: tool.access_url,
+                      documentation_url: tool.documentation_url || '',
+                      support_contact: tool.support_contact || '',
+                      categories: tool.categories || [],
+                      tags: tool.tags || [],
+                      use_cases: tool.use_cases || [],
+                      features: tool.features || [],
+                      integrations: tool.integrations || [],
+                      needs_manager_approval: tool.access_required?.needs_manager_approval ?? true,
+                      how_to_request: tool.access_required?.how_to_request || '',
+                      available_to: tool.access_required?.available_to || '',
+                      last_updated: tool.last_updated,
+                      updated_by: tool.updated_by,
+                      schema_version: tool.schema_version || '1.0',
+                      raw_yaml: content
+                    }, { onConflict: 'id' });
+
+                  if (error) {
+                    console.error('  ❌ Erreur sur', file, ':', error.message);
+                    errorCount++;
+                  } else {
+                    console.log('  ✅', file, '→', tool.display_name);
+                    successCount++;
+                  }
+                } catch (e) {
+                  console.error('  ❌ Erreur sur', file, ':', e.message);
+                  errorCount++;
+                }
+              }
+
+              console.log('\\n=== Résultat :', successCount, 'synchronisés,', errorCount, 'erreurs ===');
+              if (errorCount > 0) process.exit(1);
+            }
+
+            sync().catch(err => { console.error(err); process.exit(1); });
+          "
+
+      - name: Notify consuming projects
+        if: success()
+        env:
+          WEBHOOK_URLS: ${{ secrets.CONSUMER_WEBHOOKS }}
+        run: |
+          if [ -n "$WEBHOOK_URLS" ]; then
+            echo "=== Notification des projets consommateurs ==="
+            for url in $(echo "$WEBHOOK_URLS" | tr ',' ' '); do
+              echo "→ Notification : $url"
+              curl -s -X POST "$url" \
+                -H "Content-Type: application/json" \
+                -d '{"event":"tools-updated","source":"bymycar-tools-catalogue","timestamp":"'$(date -u +"%Y-%m-%dT%H:%M:%SZ")'"}'
+              echo ""
+            done
+          else
+            echo "⚠️  Aucun webhook configuré (CONSUMER_WEBHOOKS)."
+            echo "   Ajoutez les URLs des webhooks dans les secrets GitHub."
+          fi
+
+      - name: Summary
+        if: always()
+        run: |
+          echo "=== BYmyCAR Tools Catalogue — Sync terminée ==="
+          echo "Voir les détails dans les logs ci-dessus."

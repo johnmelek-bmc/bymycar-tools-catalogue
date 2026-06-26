@@ -1,0 +1,183 @@
+# =============================================================================
+# MyANAPro (ANA) — Fiche outil
+# =============================================================================
+# Dernière mise à jour : 2026-06-24
+# Source : C:\...\Data catalogue\TOOLS\my ana pro.docx
+
+tool:
+  id: myanapro
+  name: "MyANAPro"
+  display_name: "MyANAPro (ANA)"
+  version: "1.0.0"
+
+  team:
+    name: "Process & Administration"
+    owners:
+      - email: "a-definir@bymycar.fr"
+        name: "À définir"
+        role: "Product Owner"
+
+  description_short: >
+    Assistant numérique administratif pour les concessions auto et moto.
+    Orchestre les procédures, documents et KPIs à travers tous les
+    services de la concession.
+
+  description_fr: >
+    MyANAPro (ANA) est un assistant numérique administratif conçu pour
+    orchestrer les procédures, les documents et les indicateurs (KPIs)
+    à travers l'ensemble des services de la concession. Il vient en
+    complément des DMS et CRM existants, en se concentrant sur l'exécution
+    des processus administratifs plutôt que sur la gestion de la base
+    clients ou du stock. Il cible les concessions automobiles et motos,
+    y compris les groupes multimarques et multisites, en agissant comme
+    une couche procédurale au-dessus du DMS et du CRM.
+
+  description_en: >
+    MyANAPro (ANA) is an administrative digital assistant designed to
+    orchestrate procedures, documents, and KPIs across all dealership
+    departments. It complements existing DMS and CRM systems by focusing
+    on administrative process execution. Targets automotive and motorcycle
+    dealerships, including multi-brand and multi-site groups.
+
+  access_url: "https://myanapro.bymycar.fr"
+  documentation_url: "https://wiki.bymycar.fr/myanapro"
+  support_contact: "#support-myanapro"
+
+  categories:
+    - "Administratif"
+    - "Processus"
+    - "Documents"
+    - "Gestion"
+
+  tags:
+    - "administratif"
+    - "processus"
+    - "documents"
+    - "KPI"
+    - "workflow"
+    - "dossier commercial"
+    - "remise en état"
+    - "stock"
+    - "leads"
+    - "financement"
+    - "concession"
+    - "procédures"
+    - "digitalisation"
+
+  use_cases:
+    - problem: "Je perds du temps avec des processus administratifs manuels et des documents papier"
+      solution: >
+        MyANAPro digitalise et automatise vos workflows administratifs :
+        génération de listes de documents, portail client sécurisé pour
+        dépôt de pièces, étapes de validation numériques, traçabilité
+        complète des actions.
+      link: "https://myanapro.bymycar.fr/digitalisation"
+
+    - problem: "Je ne sais pas quels documents sont nécessaires pour chaque vente"
+      solution: >
+        Le moteur de processus génère automatiquement la liste exhaustive
+        des pièces nécessaires selon la marque, le profil client (particulier,
+        professionnel, flotte, journaliste) et le type de transaction.
+      link: "https://myanapro.bymycar.fr/dossier-commercial"
+
+    - problem: "Je veux suivre l'état d'avancement des dossiers de vente"
+      solution: >
+        Dossier commercial numérique avec visibilité claire sur la complétude,
+        les pièces manquantes, les validations en attente, et le statut
+        de chaque étape du processus.
+      link: "https://myanapro.bymycar.fr/suivi-dossiers"
+
+    - problem: "Je veux améliorer la rotation de mon stock et maîtriser les coûts de remise en état"
+      solution: >
+        Workflows structurés de remise en état liés à chaque véhicule :
+        suivi des étapes (arrivée, remise en état, prêt à la vente,
+        réservé, livré), visibilité sur les délais et coûts engagés,
+        identification des goulots d'étranglement.
+      link: "https://myanapro.bymycar.fr/gestion-stock"
+
+    - problem: "Je veux standardiser les processus administratifs entre mes concessions"
+      solution: >
+        Moteur de processus configurable qui encode les procédures par
+        poste, par marque et par profil de vente. Guide l'utilisateur
+        étape par étape avec des listes de contrôle dédiées.
+      link: "https://myanapro.bymycar.fr/moteur-processus"
+
+    - problem: "Je veux des indicateurs sur la productivité de mon équipe administrative"
+      solution: >
+        KPIs sur le nombre de dossiers traités par utilisateur, par marque,
+        par période. Mesures de complétude des dossiers et délais de
+        traitement. Visibilité sur la productivité back-office.
+      link: "https://myanapro.bymycar.fr/reporting"
+
+    - problem: "Je veux gérer mes leads et les fins de financement"
+      solution: >
+        Workflows dédiés : capture et structuration des leads avec
+        statuts et actions de suivi, processus de fin de LOA/crédit
+        avec listes de documents adaptées.
+      link: "https://myanapro.bymycar.fr/leads-financement"
+
+  features:
+    - name: "Moteur de processus et procédures"
+      description: >
+        Moteur configurable qui encode les procédures par poste, marque
+        et profil de vente. Guide pas à pas avec checklists dédiées.
+      category: "Processus"
+
+    - name: "Dossier commercial numérique"
+      description: >
+        Génération automatique de dossiers avec listes de documents,
+        portail client sécurisé, suivi de complétude.
+      category: "Documents"
+
+    - name: "Digitalisation administrative"
+      description: >
+        Remplacement des workflows papier, centralisation des documents,
+        validation numérique, traçabilité complète.
+      category: "Digitalisation"
+
+    - name: "Gestion du stock et remise en état"
+      description: >
+        Suivi des véhicules à travers leur cycle de vie, workflows de
+        remise en état, indicateurs de coûts et délais.
+      category: "Stock"
+
+    - name: "Indicateurs et reporting"
+      description: >
+        KPIs opérationnels, mesures de complétude, délais de traitement,
+        productivité des équipes.
+      category: "Reporting"
+
+    - name: "Gestion des leads"
+      description: >
+        Capture et structuration des leads avec statuts, affectations
+        et actions de suivi.
+      category: "Leads"
+
+    - name: "Fins de financement"
+      description: >
+        Processus et documents pour les scénarios de fin de LOA, crédit,
+        avec alignement entre équipes vente, finance et admin.
+      category: "Financement"
+
+  integrations:
+    - name: "DMS"
+      type: "DMS"
+      description: "Consommation des données de commande pour initialiser les dossiers"
+    - name: "CRM"
+      type: "CRM"
+      description: "Réconciliation avec les données clients existantes"
+    - name: "Portail client"
+      type: "Web"
+      description: "Espace sécurisé pour le dépôt de documents par les clients"
+
+  access_required:
+    needs_manager_approval: true
+    how_to_request: >
+      Contactez votre responsable de concession qui validera votre besoin.
+      L'équipe Process & Administration configurera votre accès par profil
+      (vente, administration, finance, direction).
+    available_to: "Équipes administratives et managers des concessions"
+
+  last_updated: "2026-06-24"
+  updated_by: "john.melek@bymycar.fr"
+  schema_version: "1.0"

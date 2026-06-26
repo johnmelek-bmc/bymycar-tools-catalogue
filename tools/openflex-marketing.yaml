@@ -1,0 +1,202 @@
+# =============================================================================
+# OpenFlex & OpenFlex Marketing — Fiche outil
+# =============================================================================
+# Dernière mise à jour : 2026-06-25
+# Source : C:\...\Data catalogue\TOOLS\openflex & openflex marketing.docx
+
+tool:
+  id: openflex-marketing
+  name: "OpenFlex"
+  display_name: "OpenFlex & OpenFlex Marketing"
+  version: "4.0.0"
+
+  team:
+    name: "CRM & Marketing Digital"
+    owners:
+      - email: "a-definir@bymycar.fr"
+        name: "À définir"
+        role: "Product Owner"
+
+  description_short: >
+    Plateforme digitale multi-métiers pour les concessions auto et
+    deux-roues : CRM, ventes, leads, marketing, data quality. Le module
+    Marketing ajoute campagnes, scoring et automatisation.
+
+  description_fr: >
+    OpenFlex est une plateforme digitale multi-métiers destinée aux
+    professionnels de l'automobile et du deux-roues. Elle couvre un large
+    périmètre allant du sourcing jusqu'à l'après-vente, en passant par
+    la reprise, la vente VN/VO, le financement et le pilotage de l'activité.
+    OpenFlex Marketing en est le module orienté data, campagnes et
+    automatisation marketing. La plateforme offre une vision CRM et pilotage
+    commercial centrée sur le client et le prospect, avec une intégration
+    forte avec les systèmes existants et les sources de leads.
+
+  description_en: >
+    OpenFlex is a multi-business digital platform for automotive and
+    motorcycle professionals. It covers a broad scope from sourcing to
+    after-sales, including trade-in, new/used car sales, financing, and
+    business management. OpenFlex Marketing is its data, campaigns, and
+    marketing automation module.
+
+  access_url: "https://openflex.bymycar.fr"
+  documentation_url: "https://wiki.bymycar.fr/openflex"
+  support_contact: "#support-openflex"
+
+  categories:
+    - "CRM"
+    - "Marketing"
+    - "Ventes"
+    - "Data"
+    - "Leads"
+
+  tags:
+    - "CRM"
+    - "leads"
+    - "marketing"
+    - "campagnes"
+    - "ventes"
+    - "VN"
+    - "VO"
+    - "reprise"
+    - "prospection"
+    - "data quality"
+    - "RCU"
+    - "segmentation"
+    - "automatisation"
+    - "scoring"
+    - "mobile"
+    - "multicanal"
+    - "SMS"
+    - "call-tracking"
+
+  use_cases:
+    - problem: "Je reçois des leads de partout et je perds du temps à les centraliser"
+      solution: >
+        OpenFlex agrège automatiquement les leads provenant des sites
+        internet, sites constructeurs, labels VO, infomédiaires, etc.
+        Vue unifiée avec historique client et point de vente.
+      link: "https://openflex.bymycar.fr/leads"
+
+    - problem: "Je veux qualifier et prioriser mes leads pour optimiser mon temps"
+      solution: >
+        Qualification automatique et priorisation des leads pour concentrer
+        l'effort des vendeurs là où le potentiel est le plus élevé.
+        Notifications et tâches associées aux nouveaux leads.
+      link: "https://openflex.bymycar.fr/qualification-leads"
+
+    - problem: "Je veux lancer des campagnes marketing ciblées"
+      solution: >
+        OpenFlex Marketing : segmentation et ciblage avancés, scénarios
+        multi-canaux (email, SMS), gestion de la pression marketing,
+        suivi des consentements et conformité RGPD.
+      link: "https://openflex.bymycar.fr/marketing/campagnes"
+
+    - problem: "Je veux automatiser des scénarios marketing"
+      solution: >
+        Scénarios paramétrables basés sur des événements (nouveau lead,
+        anniversaire, échéance financement) avec utilisation d'étiquettes
+        (tags) pour affiner les déclencheurs et segments.
+      link: "https://openflex.bymycar.fr/marketing/scenarios"
+
+    - problem: "Je veux avoir une vue 360° de mes clients et prospects"
+      solution: >
+        Base clients et prospects consolidée, dédoublonnée et mise à jour
+        en continu. Référentiel Client Unique (RCU) avec historique des
+        interactions et consentements.
+      link: "https://openflex.bymycar.fr/rcu"
+
+    - problem: "Je veux estimer une reprise facilement"
+      solution: >
+        Estimation de reprise avec scan plaque, VIN ou saisie manuelle.
+        Validation des reprises (ScanPrice, ScanPass) et gestion des
+        frais de remise en état.
+      link: "https://openflex.bymycar.fr/reprise"
+
+    - problem: "Je veux suivre mes dossiers de vente VN/VO"
+      solution: >
+        Suivi complet des dossiers de vente, de la reprise jusqu'à la
+        livraison, avec accès mobile pour les vendeurs et managers.
+      link: "https://openflex.bymycar.fr/ventes"
+
+    - problem: "Je veux travailler sur le terrain avec un accès mobile"
+      solution: >
+        Application mobile OpenFlex : agenda, stock, prises de photos
+        normalisées, estimations de reprise, notifications managériales,
+        suivi des frais VO.
+      link: "https://openflex.bymycar.fr/mobile"
+
+    - problem: "Je veux nettoyer et enrichir ma base de données clients"
+      solution: >
+        RCU avec déduplication, mise à jour régulière, agrégation multi-sources,
+        gestion des consentements, exports pour outils de BI.
+      link: "https://openflex.bymycar.fr/data-quality"
+
+  features:
+    - name: "CRM & Gestion commerciale"
+      description: >
+        Base clients/prospects consolidée, suivi des dossiers de vente
+        VN/VO, accès mobile, vue 360°.
+      category: "CRM"
+
+    - name: "Gestion des leads multi-sources"
+      description: >
+        Agrégation de toutes les sources de leads, qualification
+        automatique, priorisation, notifications.
+      category: "Leads"
+
+    - name: "Processus métier VN/VO et reprise"
+      description: >
+        Parcours client en ligne, sourcing, estimation de reprise,
+        ScanPrice/ScanPass, gestion des frais de remise en état.
+      category: "Ventes"
+
+    - name: "Application mobile"
+      description: >
+        Accès terrain : tâches prioritaires, agenda, stock, photos,
+        estimations, notifications managériales.
+      category: "Mobile"
+
+    - name: "Marketing Automation"
+      description: >
+        Campagnes multi-canales, scénarios événementiels, segmentation,
+        scoring, pression marketing, call-tracking.
+      category: "Marketing"
+
+    - name: "RCU & Data Quality"
+      description: >
+        Référentiel Client Unique, déduplication, enrichissement,
+        consentements, exports BI.
+      category: "Data"
+
+  integrations:
+    - name: "Sites internet et constructeurs"
+      type: "Web"
+      description: "Récupération des leads depuis les sites des marques"
+    - name: "Labels VO"
+      type: "Marketplace"
+      description: "Enrichissement des données véhicules et annonces"
+    - name: "Infomédiaires"
+      type: "Marketplace"
+      description: "Sources de leads externes"
+    - name: "DMS"
+      type: "DMS"
+      description: "Échange de données avec le DMS en place"
+    - name: "Outils financiers"
+      type: "Finance"
+      description: "Connexion aux solutions de financement"
+    - name: "Call-tracking"
+      type: "Analytics"
+      description: "Suivi des appels dans les campagnes"
+
+  access_required:
+    needs_manager_approval: true
+    how_to_request: >
+      Faites une demande via votre responsable CRM & Marketing Digital.
+      Les accès sont configurés par profil métier (vendeur, chef des ventes,
+      marketing, direction).
+    available_to: "Toutes les équipes commerciales, marketing et direction"
+
+  last_updated: "2026-06-25"
+  updated_by: "john.melek@bymycar.fr"
+  schema_version: "1.0"
