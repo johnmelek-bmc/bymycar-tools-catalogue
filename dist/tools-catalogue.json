@@ -1,0 +1,472 @@
+{
+  "$schema": "https://raw.githubusercontent.com/johnmelek-bmc/bymycar-tools-catalogue/main/schema/tools-catalogue-schema.json",
+  "generated_at": "2026-06-26T07:42:47.792Z",
+  "total_tools": 3,
+  "tools": [
+    {
+      "id": "hub-autometrics",
+      "name": "Hub Autometrics",
+      "display_name": "Hub Autometrics",
+      "version": "2.3.0",
+      "team": {
+        "name": "Data & Performance",
+        "owners": [
+          {
+            "email": "a-definir@bymycar.fr",
+            "name": "À définir",
+            "role": "Product Owner"
+          }
+        ]
+      },
+      "description_short": "Plateforme centralisée d'analyse et de pilotage multi-marque /  multi-groupe pour le suivi du stock, des ventes et du portage.\n",
+      "description_fr": "Hub Autometrics consolide des données issues de plus de 18 systèmes (DMS, outils d'analyse, organismes de portage, outils marché, etc.) pour offrir une vision 360° du stock, des ventes et du portage. Il permet un pilotage fin de la performance à travers des indicateurs couvrant le stock global, l'âge et l'ancienneté, la marge, les réservations, le positionnement prix marché, les ordres de facturation (OF), la qualité des annonces, et bien plus encore.\n",
+      "description_en": "Hub Autometrics is a centralized multi-brand / multi-group analytics and management platform for tracking inventory, sales, and vehicle portfolio. It consolidates data from over 18 systems (DMS, analytics tools, portfolio organizations, market tools, etc.) to provide a 360° view of stock, sales, and portfolio performance.\n",
+      "access_url": "https://hub-autometrics.bymycar.fr",
+      "documentation_url": "https://wiki.bymycar.fr/hub-autometrics",
+      "support_contact": "#support-hub-autometrics",
+      "categories": [
+        "Pilotage",
+        "Stock & Ventes",
+        "Performance",
+        "Portage"
+      ],
+      "tags": [
+        "stock",
+        "ventes",
+        "portage",
+        "KPI",
+        "âge stock",
+        "marge",
+        "réservations",
+        "prix marché",
+        "OF",
+        "qualité annonce",
+        "tableau de bord",
+        "pilotage",
+        "multi-marque",
+        "multi-groupe",
+        "indicateurs"
+      ],
+      "use_cases": [
+        {
+          "problem": "Je veux voir l'âge et l'ancienneté de mon stock",
+          "solution": "Accédez aux indicateurs Âge & Ancienneté : âge moyen global, âge moyen en vente, jours CA en stock, suivi des stocks +90j / +120j / +180j.\n",
+          "link": "https://hub-autometrics.bymycar.fr/age"
+        },
+        {
+          "problem": "Je veux analyser ma marge et ma performance économique",
+          "solution": "Consultez les indicateurs de marge : marge unitaire HT, marge totale HT, marges négatives (montant + nb véhicules), frais financiers +120j.\n",
+          "link": "https://hub-autometrics.bymycar.fr/marge"
+        },
+        {
+          "problem": "Je veux vérifier la qualité de mes annonces web",
+          "solution": "Tableau de bord Qualité Annonce : véhicules sans photo Carviz, sans commentaire, prix non actualisé +45j, doublons potentiels, dépôts vente.\n",
+          "link": "https://hub-autometrics.bymycar.fr/qualite-annonce"
+        },
+        {
+          "problem": "Je veux suivre mes réservations et cessions en cours",
+          "solution": "Visualisez les réservés 48h, réservés illimités, les cessions en cours et les véhicules en portage.\n",
+          "link": "https://hub-autometrics.bymycar.fr/reservations"
+        },
+        {
+          "problem": "Je veux connaître le positionnement prix de mes véhicules par rapport au marché",
+          "solution": "Indicateurs d'écart moyen prix/marché (%), détection des surcotés (>+5%) et sous-cotés (<-10%).\n",
+          "link": "https://hub-autometrics.bymycar.fr/positionnement-prix"
+        },
+        {
+          "problem": "Je veux piloter mes ordres de facturation (OF)",
+          "solution": "Suivi des OF : sortie/pas créé OF, pré-rentrée OF, non publié OF, délai de mise en ligne, anomalies OF livraison.\n",
+          "link": "https://hub-autometrics.bymycar.fr/pilotage-of"
+        },
+        {
+          "problem": "Je veux une vision globale de mon stock (VN, VO, VD)",
+          "solution": "Dashboard Stock Global : volume par type (VN/VO/VD), véhicules en portage, multifinancement, rafraîchissement stock, stock comptable VO, disponible à la vente, en préparation OF.\n",
+          "link": null
+        },
+        {
+          "problem": "Je veux voir l'exposition financière de mon stock (CTM)",
+          "solution": "Indicateurs CTM & Stock : valeur de stock liée au portage financier par organisme (Alcopa), par client, par groupe, pour mesurer l'exposition et optimiser les arbitrages.\n",
+          "link": null
+        }
+      ],
+      "features": [
+        {
+          "name": "Stock Global",
+          "description": "Volume et structure du stock (VN, VO, VD), présence dans les dispositifs de portage/financement, rafraîchissement, comptabilité.\n",
+          "category": "Stock"
+        },
+        {
+          "name": "CTM & Stock",
+          "description": "Valeur de stock liée au portage financier (CTM) par organisme, client ou groupe.\n",
+          "category": "Finance"
+        },
+        {
+          "name": "Âge & Ancienneté",
+          "description": "Âge moyen stock (global et en vente), jours CA en stock, suivi des seuils +90j, +120j, +180j.\n",
+          "category": "Stock"
+        },
+        {
+          "name": "Marge",
+          "description": "Marge unitaire HT, marge totale HT, marges négatives, frais financiers +120j.\n",
+          "category": "Performance"
+        },
+        {
+          "name": "Réservations & Blocages",
+          "description": "Cessions en cours, réservés 48h, réservés illimités.\n",
+          "category": "Ventes"
+        },
+        {
+          "name": "Positionnement Prix Marché",
+          "description": "Écart moyen prix/marché (%), surcotés >+5%, sous-cotés <-10%.\n",
+          "category": "Prix"
+        },
+        {
+          "name": "Pilotage OF",
+          "description": "Sortie/pas créé OF, pré-rentrée OF, non publié, délai mise en ligne.\n",
+          "category": "Process"
+        },
+        {
+          "name": "Anomalies OF",
+          "description": "En livraison OF, livraison non CTM, CTM DMS en vente OF.\n",
+          "category": "Process"
+        },
+        {
+          "name": "Qualité Annonce & Comptabilité",
+          "description": "Sans photo Carviz, sans commentaire, prix non actualisé +45j, OF sans compta, doublons, dépôts vente.\n",
+          "category": "Qualité"
+        }
+      ],
+      "integrations": [
+        {
+          "name": "DMS (multiples)",
+          "type": "DMS",
+          "description": "Récupération des données de stock et ventes"
+        },
+        {
+          "name": "Organismes de portage",
+          "type": "Finance",
+          "description": "Données CTM Alcopa et autres organismes"
+        },
+        {
+          "name": "Outils marché",
+          "type": "Market Data",
+          "description": "Positionnement prix et données marché"
+        },
+        {
+          "name": "Carviz",
+          "type": "Photo",
+          "description": "Photos et commentaires des véhicules"
+        }
+      ],
+      "needs_manager_approval": true,
+      "how_to_request": "Faites une demande à votre manager qui validera votre accès. L'équipe Data & Performance créera ensuite votre compte.\n",
+      "available_to": "Tous les managers et directions",
+      "last_updated": "2026-06-25",
+      "updated_by": "john.melek@bymycar.fr"
+    },
+    {
+      "id": "myanapro",
+      "name": "MyANAPro",
+      "display_name": "MyANAPro (ANA)",
+      "version": "1.0.0",
+      "team": {
+        "name": "Process & Administration",
+        "owners": [
+          {
+            "email": "a-definir@bymycar.fr",
+            "name": "À définir",
+            "role": "Product Owner"
+          }
+        ]
+      },
+      "description_short": "Assistant numérique administratif pour les concessions auto et moto. Orchestre les procédures, documents et KPIs à travers tous les services de la concession.\n",
+      "description_fr": "MyANAPro (ANA) est un assistant numérique administratif conçu pour orchestrer les procédures, les documents et les indicateurs (KPIs) à travers l'ensemble des services de la concession. Il vient en complément des DMS et CRM existants, en se concentrant sur l'exécution des processus administratifs plutôt que sur la gestion de la base clients ou du stock. Il cible les concessions automobiles et motos, y compris les groupes multimarques et multisites, en agissant comme une couche procédurale au-dessus du DMS et du CRM.\n",
+      "description_en": "MyANAPro (ANA) is an administrative digital assistant designed to orchestrate procedures, documents, and KPIs across all dealership departments. It complements existing DMS and CRM systems by focusing on administrative process execution. Targets automotive and motorcycle dealerships, including multi-brand and multi-site groups.\n",
+      "access_url": "https://myanapro.bymycar.fr",
+      "documentation_url": "https://wiki.bymycar.fr/myanapro",
+      "support_contact": "#support-myanapro",
+      "categories": [
+        "Administratif",
+        "Processus",
+        "Documents",
+        "Gestion"
+      ],
+      "tags": [
+        "administratif",
+        "processus",
+        "documents",
+        "KPI",
+        "workflow",
+        "dossier commercial",
+        "remise en état",
+        "stock",
+        "leads",
+        "financement",
+        "concession",
+        "procédures",
+        "digitalisation"
+      ],
+      "use_cases": [
+        {
+          "problem": "Je perds du temps avec des processus administratifs manuels et des documents papier",
+          "solution": "MyANAPro digitalise et automatise vos workflows administratifs : génération de listes de documents, portail client sécurisé pour dépôt de pièces, étapes de validation numériques, traçabilité complète des actions.\n",
+          "link": "https://myanapro.bymycar.fr/digitalisation"
+        },
+        {
+          "problem": "Je ne sais pas quels documents sont nécessaires pour chaque vente",
+          "solution": "Le moteur de processus génère automatiquement la liste exhaustive des pièces nécessaires selon la marque, le profil client (particulier, professionnel, flotte, journaliste) et le type de transaction.\n",
+          "link": "https://myanapro.bymycar.fr/dossier-commercial"
+        },
+        {
+          "problem": "Je veux suivre l'état d'avancement des dossiers de vente",
+          "solution": "Dossier commercial numérique avec visibilité claire sur la complétude, les pièces manquantes, les validations en attente, et le statut de chaque étape du processus.\n",
+          "link": "https://myanapro.bymycar.fr/suivi-dossiers"
+        },
+        {
+          "problem": "Je veux améliorer la rotation de mon stock et maîtriser les coûts de remise en état",
+          "solution": "Workflows structurés de remise en état liés à chaque véhicule : suivi des étapes (arrivée, remise en état, prêt à la vente, réservé, livré), visibilité sur les délais et coûts engagés, identification des goulots d'étranglement.\n",
+          "link": "https://myanapro.bymycar.fr/gestion-stock"
+        },
+        {
+          "problem": "Je veux standardiser les processus administratifs entre mes concessions",
+          "solution": "Moteur de processus configurable qui encode les procédures par poste, par marque et par profil de vente. Guide l'utilisateur étape par étape avec des listes de contrôle dédiées.\n",
+          "link": "https://myanapro.bymycar.fr/moteur-processus"
+        },
+        {
+          "problem": "Je veux des indicateurs sur la productivité de mon équipe administrative",
+          "solution": "KPIs sur le nombre de dossiers traités par utilisateur, par marque, par période. Mesures de complétude des dossiers et délais de traitement. Visibilité sur la productivité back-office.\n",
+          "link": "https://myanapro.bymycar.fr/reporting"
+        },
+        {
+          "problem": "Je veux gérer mes leads et les fins de financement",
+          "solution": "Workflows dédiés : capture et structuration des leads avec statuts et actions de suivi, processus de fin de LOA/crédit avec listes de documents adaptées.\n",
+          "link": "https://myanapro.bymycar.fr/leads-financement"
+        }
+      ],
+      "features": [
+        {
+          "name": "Moteur de processus et procédures",
+          "description": "Moteur configurable qui encode les procédures par poste, marque et profil de vente. Guide pas à pas avec checklists dédiées.\n",
+          "category": "Processus"
+        },
+        {
+          "name": "Dossier commercial numérique",
+          "description": "Génération automatique de dossiers avec listes de documents, portail client sécurisé, suivi de complétude.\n",
+          "category": "Documents"
+        },
+        {
+          "name": "Digitalisation administrative",
+          "description": "Remplacement des workflows papier, centralisation des documents, validation numérique, traçabilité complète.\n",
+          "category": "Digitalisation"
+        },
+        {
+          "name": "Gestion du stock et remise en état",
+          "description": "Suivi des véhicules à travers leur cycle de vie, workflows de remise en état, indicateurs de coûts et délais.\n",
+          "category": "Stock"
+        },
+        {
+          "name": "Indicateurs et reporting",
+          "description": "KPIs opérationnels, mesures de complétude, délais de traitement, productivité des équipes.\n",
+          "category": "Reporting"
+        },
+        {
+          "name": "Gestion des leads",
+          "description": "Capture et structuration des leads avec statuts, affectations et actions de suivi.\n",
+          "category": "Leads"
+        },
+        {
+          "name": "Fins de financement",
+          "description": "Processus et documents pour les scénarios de fin de LOA, crédit, avec alignement entre équipes vente, finance et admin.\n",
+          "category": "Financement"
+        }
+      ],
+      "integrations": [
+        {
+          "name": "DMS",
+          "type": "DMS",
+          "description": "Consommation des données de commande pour initialiser les dossiers"
+        },
+        {
+          "name": "CRM",
+          "type": "CRM",
+          "description": "Réconciliation avec les données clients existantes"
+        },
+        {
+          "name": "Portail client",
+          "type": "Web",
+          "description": "Espace sécurisé pour le dépôt de documents par les clients"
+        }
+      ],
+      "needs_manager_approval": true,
+      "how_to_request": "Contactez votre responsable de concession qui validera votre besoin. L'équipe Process & Administration configurera votre accès par profil (vente, administration, finance, direction).\n",
+      "available_to": "Équipes administratives et managers des concessions",
+      "last_updated": "2026-06-24",
+      "updated_by": "john.melek@bymycar.fr"
+    },
+    {
+      "id": "openflex-marketing",
+      "name": "OpenFlex",
+      "display_name": "OpenFlex & OpenFlex Marketing",
+      "version": "4.0.0",
+      "team": {
+        "name": "CRM & Marketing Digital",
+        "owners": [
+          {
+            "email": "a-definir@bymycar.fr",
+            "name": "À définir",
+            "role": "Product Owner"
+          }
+        ]
+      },
+      "description_short": "Plateforme digitale multi-métiers pour les concessions auto et deux-roues : CRM, ventes, leads, marketing, data quality. Le module Marketing ajoute campagnes, scoring et automatisation.\n",
+      "description_fr": "OpenFlex est une plateforme digitale multi-métiers destinée aux professionnels de l'automobile et du deux-roues. Elle couvre un large périmètre allant du sourcing jusqu'à l'après-vente, en passant par la reprise, la vente VN/VO, le financement et le pilotage de l'activité. OpenFlex Marketing en est le module orienté data, campagnes et automatisation marketing. La plateforme offre une vision CRM et pilotage commercial centrée sur le client et le prospect, avec une intégration forte avec les systèmes existants et les sources de leads.\n",
+      "description_en": "OpenFlex is a multi-business digital platform for automotive and motorcycle professionals. It covers a broad scope from sourcing to after-sales, including trade-in, new/used car sales, financing, and business management. OpenFlex Marketing is its data, campaigns, and marketing automation module.\n",
+      "access_url": "https://openflex.bymycar.fr",
+      "documentation_url": "https://wiki.bymycar.fr/openflex",
+      "support_contact": "#support-openflex",
+      "categories": [
+        "CRM",
+        "Marketing",
+        "Ventes",
+        "Data",
+        "Leads"
+      ],
+      "tags": [
+        "CRM",
+        "leads",
+        "marketing",
+        "campagnes",
+        "ventes",
+        "VN",
+        "VO",
+        "reprise",
+        "prospection",
+        "data quality",
+        "RCU",
+        "segmentation",
+        "automatisation",
+        "scoring",
+        "mobile",
+        "multicanal",
+        "SMS",
+        "call-tracking"
+      ],
+      "use_cases": [
+        {
+          "problem": "Je reçois des leads de partout et je perds du temps à les centraliser",
+          "solution": "OpenFlex agrège automatiquement les leads provenant des sites internet, sites constructeurs, labels VO, infomédiaires, etc. Vue unifiée avec historique client et point de vente.\n",
+          "link": "https://openflex.bymycar.fr/leads"
+        },
+        {
+          "problem": "Je veux qualifier et prioriser mes leads pour optimiser mon temps",
+          "solution": "Qualification automatique et priorisation des leads pour concentrer l'effort des vendeurs là où le potentiel est le plus élevé. Notifications et tâches associées aux nouveaux leads.\n",
+          "link": "https://openflex.bymycar.fr/qualification-leads"
+        },
+        {
+          "problem": "Je veux lancer des campagnes marketing ciblées",
+          "solution": "OpenFlex Marketing : segmentation et ciblage avancés, scénarios multi-canaux (email, SMS), gestion de la pression marketing, suivi des consentements et conformité RGPD.\n",
+          "link": "https://openflex.bymycar.fr/marketing/campagnes"
+        },
+        {
+          "problem": "Je veux automatiser des scénarios marketing",
+          "solution": "Scénarios paramétrables basés sur des événements (nouveau lead, anniversaire, échéance financement) avec utilisation d'étiquettes (tags) pour affiner les déclencheurs et segments.\n",
+          "link": "https://openflex.bymycar.fr/marketing/scenarios"
+        },
+        {
+          "problem": "Je veux avoir une vue 360° de mes clients et prospects",
+          "solution": "Base clients et prospects consolidée, dédoublonnée et mise à jour en continu. Référentiel Client Unique (RCU) avec historique des interactions et consentements.\n",
+          "link": "https://openflex.bymycar.fr/rcu"
+        },
+        {
+          "problem": "Je veux estimer une reprise facilement",
+          "solution": "Estimation de reprise avec scan plaque, VIN ou saisie manuelle. Validation des reprises (ScanPrice, ScanPass) et gestion des frais de remise en état.\n",
+          "link": "https://openflex.bymycar.fr/reprise"
+        },
+        {
+          "problem": "Je veux suivre mes dossiers de vente VN/VO",
+          "solution": "Suivi complet des dossiers de vente, de la reprise jusqu'à la livraison, avec accès mobile pour les vendeurs et managers.\n",
+          "link": "https://openflex.bymycar.fr/ventes"
+        },
+        {
+          "problem": "Je veux travailler sur le terrain avec un accès mobile",
+          "solution": "Application mobile OpenFlex : agenda, stock, prises de photos normalisées, estimations de reprise, notifications managériales, suivi des frais VO.\n",
+          "link": "https://openflex.bymycar.fr/mobile"
+        },
+        {
+          "problem": "Je veux nettoyer et enrichir ma base de données clients",
+          "solution": "RCU avec déduplication, mise à jour régulière, agrégation multi-sources, gestion des consentements, exports pour outils de BI.\n",
+          "link": "https://openflex.bymycar.fr/data-quality"
+        }
+      ],
+      "features": [
+        {
+          "name": "CRM & Gestion commerciale",
+          "description": "Base clients/prospects consolidée, suivi des dossiers de vente VN/VO, accès mobile, vue 360°.\n",
+          "category": "CRM"
+        },
+        {
+          "name": "Gestion des leads multi-sources",
+          "description": "Agrégation de toutes les sources de leads, qualification automatique, priorisation, notifications.\n",
+          "category": "Leads"
+        },
+        {
+          "name": "Processus métier VN/VO et reprise",
+          "description": "Parcours client en ligne, sourcing, estimation de reprise, ScanPrice/ScanPass, gestion des frais de remise en état.\n",
+          "category": "Ventes"
+        },
+        {
+          "name": "Application mobile",
+          "description": "Accès terrain : tâches prioritaires, agenda, stock, photos, estimations, notifications managériales.\n",
+          "category": "Mobile"
+        },
+        {
+          "name": "Marketing Automation",
+          "description": "Campagnes multi-canales, scénarios événementiels, segmentation, scoring, pression marketing, call-tracking.\n",
+          "category": "Marketing"
+        },
+        {
+          "name": "RCU & Data Quality",
+          "description": "Référentiel Client Unique, déduplication, enrichissement, consentements, exports BI.\n",
+          "category": "Data"
+        }
+      ],
+      "integrations": [
+        {
+          "name": "Sites internet et constructeurs",
+          "type": "Web",
+          "description": "Récupération des leads depuis les sites des marques"
+        },
+        {
+          "name": "Labels VO",
+          "type": "Marketplace",
+          "description": "Enrichissement des données véhicules et annonces"
+        },
+        {
+          "name": "Infomédiaires",
+          "type": "Marketplace",
+          "description": "Sources de leads externes"
+        },
+        {
+          "name": "DMS",
+          "type": "DMS",
+          "description": "Échange de données avec le DMS en place"
+        },
+        {
+          "name": "Outils financiers",
+          "type": "Finance",
+          "description": "Connexion aux solutions de financement"
+        },
+        {
+          "name": "Call-tracking",
+          "type": "Analytics",
+          "description": "Suivi des appels dans les campagnes"
+        }
+      ],
+      "needs_manager_approval": true,
+      "how_to_request": "Faites une demande via votre responsable CRM & Marketing Digital. Les accès sont configurés par profil métier (vendeur, chef des ventes, marketing, direction).\n",
+      "available_to": "Toutes les équipes commerciales, marketing et direction",
+      "last_updated": "2026-06-25",
+      "updated_by": "john.melek@bymycar.fr"
+    }
+  ]
+}

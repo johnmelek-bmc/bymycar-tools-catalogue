@@ -1,0 +1,9 @@
+node_modules/
+package-lock.json
+*.raw.json
+ideas-functions-current.txt
+ideas-functions-extracted.txt
+lovable-response*.json
+
+package.json
+package-lock.json

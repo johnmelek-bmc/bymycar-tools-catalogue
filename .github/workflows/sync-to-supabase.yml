@@ -1,14 +1,15 @@
 # =============================================================================
-# BYmyCAR Tools Catalogue — Sync vers Supabase
+# BYmyCAR Tools Catalogue — Build & Deploy
 # =============================================================================
 # Cette GitHub Action se déclenche à chaque push sur main (merge de PR).
 # Elle :
 #   1. Valide la structure YAML de tous les fichiers dans /tools/
-#   2. Synchronise les données dans la table Supabase tools_catalogue
-#   3. Déclenche un webhook vers les projets consommateurs (optionnel)
+#   2. Génère dist/tools-catalogue.json (source de vérité pour les projets)
+#   3. Publie le JSON sur GitHub Pages (optionnel)
+#   4. Déclenche un webhook vers les projets consommateurs (optionnel)
 # =============================================================================
 
-name: sync-tools-to-supabase
+name: build-and-deploy
 
 on:
   push:
@@ -19,8 +20,8 @@ on:
   workflow_dispatch: # permet un déclenchement manuel
 
 jobs:
-  validate-and-sync:
-    name: Validate & Sync to Supabase
+  validate-and-build:
+    name: Validate & Build JSON
     runs-on: ubuntu-latest
 
     steps:
@@ -33,8 +34,7 @@ jobs:
           node-version: 20
 
       - name: Install dependencies
-        run: |
-          npm install yaml @supabase/supabase-js ajv
+        run: npm install yaml
 
       - name: Validate YAML files
         run: |
@@ -47,7 +47,6 @@ jobs:
                 const YAML = require('yaml');
                 try {
                   const doc = YAML.parse(fs.readFileSync('$file', 'utf8'));
-                  // Vérifications basiques
                   if (!doc.tool) throw new Error('Structure tool manquante');
                   if (!doc.tool.id) throw new Error('id manquant');
                   if (!doc.tool.name) throw new Error('name manquant');
@@ -66,93 +65,24 @@ jobs:
             fi
           done
 
-      - name: Sync to Supabase
-        env:
-          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
-          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
-        run: |
-          echo "=== Synchronisation vers Supabase ==="
-          node -e "
-            const fs = require('fs');
-            const path = require('path');
-            const YAML = require('yaml');
-            const { createClient } = require('@supabase/supabase-js');
+      - name: Generate tools-catalogue.json
+        run: node scripts/generate-json.js
 
-            const supabaseUrl = process.env.SUPABASE_URL;
-            const supabaseKey = process.env.SUPABASE_SERVICE_KEY;
+      - name: Upload dist/ as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: tools-catalogue
+          path: dist/
+          retention-days: 90
 
-            if (!supabaseUrl || !supabaseKey) {
-              console.log('⚠️  SUPABASE_URL ou SUPABASE_SERVICE_KEY non définis.');
-              console.log('   Les fichiers YAML sont validés mais pas synchronisés.');
-              console.log('   Ajoutez ces secrets dans les settings GitHub.');
-              process.exit(0);
-            }
-
-            const supabase = createClient(supabaseUrl, supabaseKey);
-            const toolsDir = 'tools';
-
-            async function sync() {
-              const files = fs.readdirSync(toolsDir)
-                .filter(f => f.endsWith('.yaml') || f.endsWith('.yml'));
-
-              let successCount = 0;
-              let errorCount = 0;
-
-              for (const file of files) {
-                try {
-                  const content = fs.readFileSync(path.join(toolsDir, file), 'utf8');
-                  const doc = YAML.parse(content);
-                  const tool = doc.tool;
-
-                  // Upsert dans Supabase (met à jour si l'id existe déjà)
-                  const { data, error } = await supabase
-                    .from('tools_catalogue')
-                    .upsert({
-                      id: tool.id,
-                      name: tool.name,
-                      display_name: tool.display_name,
-                      version: tool.version,
-                      team_name: tool.team.name,
-                      team_owners: tool.team.owners,
-                      description_short: tool.description_short || '',
-                      description_fr: tool.description_fr,
-                      description_en: tool.description_en || '',
-                      access_url: tool.access_url,
-                      documentation_url: tool.documentation_url || '',
-                      support_contact: tool.support_contact || '',
-                      categories: tool.categories || [],
-                      tags: tool.tags || [],
-                      use_cases: tool.use_cases || [],
-                      features: tool.features || [],
-                      integrations: tool.integrations || [],
-                      needs_manager_approval: tool.access_required?.needs_manager_approval ?? true,
-                      how_to_request: tool.access_required?.how_to_request || '',
-                      available_to: tool.access_required?.available_to || '',
-                      last_updated: tool.last_updated,
-                      updated_by: tool.updated_by,
-                      schema_version: tool.schema_version || '1.0',
-                      raw_yaml: content
-                    }, { onConflict: 'id' });
-
-                  if (error) {
-                    console.error('  ❌ Erreur sur', file, ':', error.message);
-                    errorCount++;
-                  } else {
-                    console.log('  ✅', file, '→', tool.display_name);
-                    successCount++;
-                  }
-                } catch (e) {
-                  console.error('  ❌ Erreur sur', file, ':', e.message);
-                  errorCount++;
-                }
-              }
-
-              console.log('\\n=== Résultat :', successCount, 'synchronisés,', errorCount, 'erreurs ===');
-              if (errorCount > 0) process.exit(1);
-            }
-
-            sync().catch(err => { console.error(err); process.exit(1); });
-          "
+      - name: Deploy JSON to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+          destination_dir: .
+          keep_files: false
+          publish_branch: gh-pages
 
       - name: Notify consuming projects
         if: success()
@@ -169,12 +99,15 @@ jobs:
               echo ""
             done
           else
-            echo "⚠️  Aucun webhook configuré (CONSUMER_WEBHOOKS)."
-            echo "   Ajoutez les URLs des webhooks dans les secrets GitHub."
+            echo "ℹ️  Aucun webhook configuré (CONSUMER_WEBHOOKS)."
+            echo "   Les projets consommateurs peuvent fetch le JSON depuis :"
+            echo "   https://raw.githubusercontent.com/${{ github.repository }}/main/dist/tools-catalogue.json"
           fi
 
       - name: Summary
         if: always()
         run: |
-          echo "=== BYmyCAR Tools Catalogue — Sync terminée ==="
-          echo "Voir les détails dans les logs ci-dessus."
+          echo "=== BYmyCAR Tools Catalogue — Build terminée ==="
+          echo "JSON disponible à :"
+          echo "  https://raw.githubusercontent.com/${{ github.repository }}/main/dist/tools-catalogue.json"
+          echo "  (ou via GitHub Pages après déploiement)"
