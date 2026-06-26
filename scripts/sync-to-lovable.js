@@ -52,6 +52,7 @@ function post(url, data, headers = {}) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Accept: "application/json, text/event-stream",
         "Content-Length": Buffer.byteLength(payload),
         ...headers,
       },
@@ -153,25 +154,63 @@ async function main() {
     { Authorization: `Bearer ${accessToken}` }
   );
 
-  // 4. Analyser la réponse
-  const statusMatch = mcpResp.match(/"status"\s*:\s*"([^"]+)"/);
-  const status = statusMatch ? statusMatch[1] : "inconnu";
+  // 4. Analyser la réponse SSE (Server-Sent Events)
+  // Format : event: message\ndata: {"result":{...},"jsonrpc":"2.0","id":1}
+  const dataLine = mcpResp.match(/^data: (.+)$/m);
+  let status = "inconnu";
+  let cost = "?";
+  let preview = null;
 
-  const costMatch = mcpResp.match(/"cost_credits"\s*:\s*([0-9.]+)/);
-  const cost = costMatch ? costMatch[1] : "?";
+  if (dataLine) {
+    try {
+      const sseData = JSON.parse(dataLine[1]);
+      const content =
+        sseData.result?.content?.[0]?.text ||
+        JSON.stringify(sseData.result);
 
-  const previewMatch = mcpResp.match(/"preview_url"\s*:\s*"([^"]+)"/);
-  const preview = previewMatch ? previewMatch[1] : null;
+      // Le contenu est une chaîne JSON (double-encodée)
+      let inner;
+      try {
+        inner = JSON.parse(content);
+      } catch {
+        inner = { status: content };
+      }
+      status = inner.status || "completed";
+      cost = sseData.result?.cost_credits ?? sseData.result?.cost ?? "?";
+      preview = sseData.result?.preview_url ?? null;
 
-  console.log(`\n✅ Statut : ${status}`);
-  console.log(`💳 Crédits utilisés : ${cost}`);
-  if (preview) console.log(`🔗 Preview : ${preview}`);
+      console.log(`\n✅ Statut : ${status}`);
+      console.log(`💳 Crédits utilisés : ${cost}`);
+      if (preview) console.log(`🔗 Preview : ${preview}`);
 
-  if (status === "completed") {
-    console.log("\n✅ BYmAIcar Portal mis à jour avec succès !");
+      if (status === "completed") {
+        console.log("\n✅ BYmAIcar Portal mis à jour avec succès !");
+      } else {
+        console.log(`\n⚠️  Statut : ${status}`);
+        console.log("   Le JSON est déjà déployé sur GitHub Pages.");
+      }
+    } catch (e) {
+      console.log("\n⚠️  Impossible d'analyser la réponse MCP :", e.message);
+      console.log("   Réponse brute (200 premiers chars) :", mcpResp.slice(0, 200));
+    }
   } else {
-    console.log(`\n⚠️  Statut inattendu : ${status}`);
-    console.log("   Le JSON est déjà déployé sur GitHub Pages.");
+    // Réponse JSON simple (non-SSE)
+    try {
+      const simple = JSON.parse(mcpResp);
+      status = simple.status || "completed";
+      cost = simple.cost_credits ?? simple.cost ?? "?";
+      preview = simple.preview_url ?? null;
+      console.log(`\n✅ Statut : ${status}`);
+      console.log(`💳 Crédits utilisés : ${cost}`);
+      if (preview) console.log(`🔗 Preview : ${preview}`);
+      if (status === "completed") {
+        console.log("\n✅ BYmAIcar Portal mis à jour avec succès !");
+      } else {
+        console.log(`\n⚠️  Statut : ${status}`);
+      }
+    } catch (e) {
+      console.log("\n⚠️  Réponse inattendue :", mcpResp.slice(0, 300));
+    }
   }
 }
 
